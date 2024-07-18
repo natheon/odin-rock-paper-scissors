@@ -8,11 +8,36 @@
 </head>
 <body>
     <script>
-        const values = ["rock", "paper", "scissors"];
+        const choices = ["rock", "paper", "scissors"];
 
-        function getComputerChoice() {
-            return values[Math.floor(Math.random() * 3)];
+        let getComputerChoice = () => choices[Math.floor(Math.random() * 3)];
+        function getHumanChoice () {
+            let humanChoice = prompt("Choice").toLowerCase();
+            if (!choices.includes(humanChoice)) { 
+                throw Error(`Value entered is not in ${choices}`);
+            }
+            return humanChoice;
+        };
+        
+        let humanScore = 0, 
+            computerScore = 0;
+        
+        function playRound(humanChoice, computerChoice) {
+            if (humanChoice == computerChoice) {
+                return `Draw! You both played ${humanChoice}`
+            }
+            // If difference is 0, both entered the same number
+            // If difference is 1, human wins
+            // If difference is 2, computer wins
+            let diffChoice = (choices.indexOf(humanChoice) - choices.indexOf(computerChoice) + 3 ) % 3;
+            switch (diffChoice) {
+                case 0: return `Draw! You both played ${humanChoice}`;
+                case 1: return `You win! ${humanChoice} beats ${computerChoice}`;
+                case 2: return `You loose! ${computerChoice} beats ${humanChoice}`;
+            }
         }
+
+        console.log(playRound(getHumanChoice(), getComputerChoice()));
     </script>
 </body>
 </html>
