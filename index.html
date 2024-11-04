@@ -4,67 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="rps.js"></script>
     <title>Rock Paper Scissors</title>
 </head>
 <body>
-    <script>
-        const CHOICES = ["rock", "paper", "scissors"];
-        const ROUNDS = 5;
-
-        let getComputerChoice = () => CHOICES[Math.floor(Math.random() * 3)];
-        function getHumanChoice () {
-            let humanChoice = prompt("Choice").toLowerCase();
-            if (!CHOICES.includes(humanChoice)) { 
-                throw Error(`Value entered is not in ${CHOICES}`);
-            }
-            return humanChoice;
-        };
-        
-        function playRound(humanChoice, computerChoice) {
-            if (humanChoice == computerChoice) {
-                return `Draw! You both played ${humanChoice}`
-            }
-            // If difference is 0, both entered the same number
-            // If difference is 1, human wins
-            // If difference is 2, computer wins
-            return (CHOICES.indexOf(humanChoice) - CHOICES.indexOf(computerChoice) + 3 ) % 3;
-            
-        }
-
-        function playGame() {
-            
-            let humanScore = 0, 
-                computerScore = 0;
-
-            for (let i=0; i < ROUNDS; i++) {
-                let humanChoice = getHumanChoice();
-                let computerChoice = getComputerChoice();
-                let roundScore = playRound(humanChoice, computerChoice);
-
-                switch (roundScore) {
-                    case 0: {console.log(`Draw! You both played ${humanChoice}`);}
-                        break;
-                    case 1: {
-                            humanScore++;
-                            console.log(`You win this round! ${humanChoice} beats ${computerChoice}`);
-                        }
-                        break;
-                    case 2: {
-                            computerScore++;
-                            console.log(`You loose this round! ${computerChoice} beats ${humanChoice}`);
-                        }
-                }
-            }
-
-            if (humanScore > computerScore) {
-                return `You win! \nYour score: ${humanScore}\nComputer Score ${computerScore}`;
-            } else if (humanScore == computerScore) {
-                return `It's a draw! You both scored ${humanScore} points.`;
-            }
-            return `You loose! \nYour score: ${humanScore}\nComputer Score: ${computerScore}`;
-        }
-
-        console.log(playGame());
-    </script>
+    <!-- <script>
+    </script> -->
+    <div id="btn-container">
+        <button class="btn-user-rps" onclick="playRound('rock')">Rock</button>
+        <button class="btn-user-rps" onclick="playRound('paper')">Paper</button>
+        <button class="btn-user-rps" onclick="playRound('scissors')">Scissors</button>
+    </div>
+    <div id="scores">
+        <p>Computer score: <span id="computer-score"></span></p>
+        <p>Your score: <span id="human-score"></span></p>
+    </div>
+    <div id="results">
+    </div>
 </body>
 </html>
